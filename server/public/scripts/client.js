@@ -78,10 +78,10 @@ function renderToDom(scoreboard){
   for (let round of scoreboard){
       $('#scoreboard').append(`<tr>
       <td>${round.round}</td>
-      <td class="${round.PlayerOneStatus}">${round.PlayerOne}</td>
-      <td class="${round.PlayerTwoStatus}">${round.PlayerTwo}</td>
-      <td class="${round.PlayerThreeStatus}">${round.PlayerThree}</td>
-      <td class="${round.PlayerFourStatus}">${round.PlayerFour}</td>
+      <td class="${round.playerOneStatus}">${round.playerOne}</td>
+      <td class="${round.playerTwoStatus}">${round.playerTwo}</td>
+      <td class="${round.playerThreeStatus}">${round.playerThree}</td>
+      <td class="${round.playerFourStatus}">${round.playerFour}</td>
 
       </tr>`)
   }

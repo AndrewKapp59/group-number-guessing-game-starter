@@ -21,3 +21,15 @@ table, th, td {
     border-collapse: collapse;
     padding: 10px;
 }
+
+.correct {
+    background-color: green;
+}
+
+.too-low {
+    background-color: red;
+}
+
+.too-high {
+    background-color: blue;
+}

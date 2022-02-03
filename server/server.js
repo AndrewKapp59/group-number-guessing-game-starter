@@ -21,20 +21,25 @@ app.post('/guesses', function(req, res){
   // the data that is send from the client is saved for us in req.body
   // i.e. the data object is = req.body
   console.log('req.body from the POST is', req.body);
-  // scoreboard.push(req.body.itemToGuess);
 
   let playerOneNum = req.body.itemToGuess.playerOne;
+  let playerTwoNum = req.body.itemToGuess.playerTwo;
+  let playerThreeNum = req.body.itemToGuess.playerThree;
+  let playerFourNum = req.body.itemToGuess.playerFour;
 
   let playerOneStatus = checkNum(playerOneNum);
-  let playerTwoStatus = checkNum(playerTwo);
-  let playerThreeStatus = checkNum(playerThree);
-  let playerFourStatus = checkNum(playerFour);
-
+  let playerTwoStatus = checkNum(playerTwoNum);
+  let playerThreeStatus = checkNum(playerThreeNum);
+  let playerFourStatus = checkNum(playerFourNum);
   req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
-  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
-  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
-  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
+  req.body.itemToGuess['playerTwoStatus'] = playerTwoStatus;
+  req.body.itemToGuess['playerThreeStatus'] = playerThreeStatus;
+  req.body.itemToGuess['playerFourStatus'] = playerFourStatus;
   
+  scoreboard.push(req.body.itemToGuess);
+
+  // //RoundCouter update
+  // roundCounter += 1;
   res.send(201);
 })
 
@@ -43,10 +48,10 @@ function checkNum(num){
     return 'correct';
   }
   else if (num < correctNumber) {
-    return 'too low'
+    return 'too-low';
   }
   else if (num > correctNumber) {
-    return 'too high'
+    return 'too-high';
   }
 
 }// end checkNum
@@ -56,8 +61,6 @@ function checkNum(num){
 // gets the current scoreboard and sends it to the client
 app.get('/scoreboard', function(req, res){
   console.log('request at /scoreboard was made', req.body);
-
-
   res.send(scoreboard);
 });
 
