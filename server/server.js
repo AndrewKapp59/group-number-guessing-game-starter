@@ -22,37 +22,28 @@ app.post('/guesses', function(req, res){
   // i.e. the data object is = req.body
   console.log('req.body from the POST is', req.body);
 
+  // updates the round number
   roundCounter += 1;
 
+  // runs the input through checkNum. Whatever checkNum returns
+  // is assigned to a status value
   let playerOneStatus = checkNum(req.body.itemToGuess.playerOne);
   let playerTwoStatus = checkNum(req.body.itemToGuess.playerTwo);
   let playerThreeStatus = checkNum(req.body.itemToGuess.playerThree);
   let playerFourStatus = checkNum(req.body.itemToGuess.playerFour);
   
+  // the status and roundCounter values are added to the object sent by the client
   req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
   req.body.itemToGuess['playerTwoStatus'] = playerTwoStatus;
   req.body.itemToGuess['playerThreeStatus'] = playerThreeStatus;
   req.body.itemToGuess['playerFourStatus'] = playerFourStatus;
   req.body.itemToGuess['round'] = roundCounter;
   
+  // the updated object is pushed into the scoreboard array
   scoreboard.push(req.body.itemToGuess);
   
   res.send(201);
 })
-
-function checkNum(num){
-  if (num === correctNumber) {
-    return 'correct';
-  }
-  else if (num < correctNumber) {
-    return 'too-low';
-  }
-  else if (num > correctNumber) {
-    return 'too-high';
-  }
-
-}// end checkNum
-
 
 
 // gets the current scoreboard and sends it to the client
@@ -70,10 +61,19 @@ function randomNumberGen() {
 // When the server turns on, the random number is created and stored on the server.
 randomNumberGen();
 
+// checks to see if the input number is = < or > that current correctNumber
+function checkNum(num){
+  if (num == correctNumber) {
+    return 'correct';
+  }
+  else if (num < correctNumber) {
+    return 'too-low';
+  }
+  else if (num > correctNumber) {
+    return 'too-high';
+  }
 
-
-
-
+}// end checkNum
 
 app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
