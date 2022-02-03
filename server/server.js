@@ -4,6 +4,7 @@ const app = express();
 const PORT = 5000;
 
 let correctNumber;
+let roundCounter=1;
 
 let scoreboard = [];
 
@@ -15,18 +16,48 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static('server/public'));
 
 
-// GET & POST Routes go here
 //gets the inputs from the client 
 app.post('/guesses', function(req, res){
   // the data that is send from the client is saved for us in req.body
   // i.e. the data object is = req.body
   console.log('req.body from the POST is', req.body);
-  scoreboard.push(req.body.itemToGuess);
+  // scoreboard.push(req.body.itemToGuess);
+
+  let playerOneNum = req.body.itemToGuess.playerOne;
+
+  let playerOneStatus = checkNum(playerOneNum);
+  let playerTwoStatus = checkNum(playerTwo);
+  let playerThreeStatus = checkNum(playerThree);
+  let playerFourStatus = checkNum(playerFour);
+
+  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
+  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
+  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
+  req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
+  
   res.send(201);
 })
 
+function checkNum(num){
+  if (num === correctNumber) {
+    return 'correct';
+  }
+  else if (num < correctNumber) {
+    return 'too low'
+  }
+  else if (num > correctNumber) {
+    return 'too high'
+  }
+
+}// end checkNum
+
+
+
+// gets the current scoreboard and sends it to the client
 app.get('/scoreboard', function(req, res){
   console.log('request at /scoreboard was made', req.body);
+
+
   res.send(scoreboard);
 });
 
@@ -60,6 +91,15 @@ randomNumberGen();
 
 
 
+
+
 app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
+
+
+
+
+
+
+

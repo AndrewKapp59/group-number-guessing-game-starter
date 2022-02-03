@@ -12,7 +12,8 @@ function handleReady() {
 //   $.ajax({
 //     method: 'GET',
 //     url:'/startNewGame'
-//   })
+//   }).then(function(response){
+//    
 // };
 // </Game Start> ---------------------------------------
 
@@ -20,20 +21,16 @@ function handleReady() {
 
 function addGuesses() {
   console.log('inside addGuesses');
-  
-  let brantInput = $('#input-brant-guess').val();
-  let drewInput = $('#input-drew-guess').val();
-  let markInput = $('#input-mark-guess').val();
-  let joshInput = $('#input-josh-guess').val();
-
-  
-  $('#input-brant-guess').val('');
-  $('#input-drew-guess').val('');
-  $('#input-mark-guess').val('');
-  $('#input-josh-guess').val('');
+  let playerOneInput = $('#input-player-one-guess').val();
+  let playerTwoInput = $('#input-player-two-guess').val();
+  let playerThreeInput = $('#input-player-three-guess').val();
+  let playerFourInput = $('#input-player-four-guess').val();
+  $('#input-player-one-guess').val('');
+  $('#input-player-two-guess').val('');
+  $('#input-player-three-guess').val('');
+  $('#input-player-four-guess').val('');
   console.log('inputs emptied');
   
-
   // use AJAX to make a post request to the server
   $.ajax({
     method: 'POST', 
@@ -41,11 +38,16 @@ function addGuesses() {
     data: {
       itemToGuess: {
         round: '',
-        brant: brantInput,
-        drew: drewInput,
-        mark: markInput,
-        josh: joshInput,
+        playerOne: playerOneInput,
+        playerOneStatus: '',
+        playerTwo: playerTwoInput,
+        playerThree: playerThreeInput,
+        playerThreeStatus: '',
+        playerFour: playerFourInput,
+        playerFourStatus: '',
       }
+
+
     }
   }).then(function(response){
     console.log('Item Added', response);
@@ -55,10 +57,8 @@ function addGuesses() {
   })
 }
 
-
 function getScoreboard () {
   console.log('inside getScoreboard');
-
   // gets inventory array from the server using AJAX
   $.ajax({
     method: 'GET',
@@ -78,10 +78,11 @@ function renderToDom(scoreboard){
   for (let round of scoreboard){
       $('#scoreboard').append(`<tr>
       <td>${round.round}</td>
-      <td>${round.brant}</td>
-      <td>${round.drew}</td>
-      <td>${round.mark}</td>
-      <td>${round.josh}</td>
+      <td class="${round.PlayerOneStatus}">${round.PlayerOne}</td>
+      <td class="${round.PlayerTwoStatus}">${round.PlayerTwo}</td>
+      <td class="${round.PlayerThreeStatus}">${round.PlayerThree}</td>
+      <td class="${round.PlayerFourStatus}">${round.PlayerFour}</td>
+
       </tr>`)
   }
 }
