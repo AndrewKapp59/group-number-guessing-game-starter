@@ -3,8 +3,8 @@ const bodyParser = require('body-parser')
 const app = express();
 const PORT = 5000;
 
-let correctNumber;
-let roundCounter=1;
+let correctNumber ;
+let roundCounter = 0 ;
 
 let scoreboard = [];
 
@@ -22,24 +22,21 @@ app.post('/guesses', function(req, res){
   // i.e. the data object is = req.body
   console.log('req.body from the POST is', req.body);
 
-  let playerOneNum = req.body.itemToGuess.playerOne;
-  let playerTwoNum = req.body.itemToGuess.playerTwo;
-  let playerThreeNum = req.body.itemToGuess.playerThree;
-  let playerFourNum = req.body.itemToGuess.playerFour;
+  roundCounter += 1;
 
-  let playerOneStatus = checkNum(playerOneNum);
-  let playerTwoStatus = checkNum(playerTwoNum);
-  let playerThreeStatus = checkNum(playerThreeNum);
-  let playerFourStatus = checkNum(playerFourNum);
+  let playerOneStatus = checkNum(req.body.itemToGuess.playerOne);
+  let playerTwoStatus = checkNum(req.body.itemToGuess.playerTwo);
+  let playerThreeStatus = checkNum(req.body.itemToGuess.playerThree);
+  let playerFourStatus = checkNum(req.body.itemToGuess.playerFour);
+  
   req.body.itemToGuess['playerOneStatus'] = playerOneStatus;
   req.body.itemToGuess['playerTwoStatus'] = playerTwoStatus;
   req.body.itemToGuess['playerThreeStatus'] = playerThreeStatus;
   req.body.itemToGuess['playerFourStatus'] = playerFourStatus;
+  req.body.itemToGuess['round'] = roundCounter;
   
   scoreboard.push(req.body.itemToGuess);
-
-  // //RoundCouter update
-  // roundCounter += 1;
+  
   res.send(201);
 })
 
@@ -63,24 +60,6 @@ app.get('/scoreboard', function(req, res){
   console.log('request at /scoreboard was made', req.body);
   res.send(scoreboard);
 });
-
-
-
-// Now we need to test those elements against the current correctNumber value
-// function checkGuess (guess) {
-//   if( guess === correctNumber) {
-    
-//     return guess; 
-
-//   }
-//   else if( guess > correctNumber) {
-
-//   }
-//   else if( guess < correctNumber) {
-
-//   }
-// }
-
 
 // produces a random guess and assigns it to correctNumber
 function randomNumberGen() {
