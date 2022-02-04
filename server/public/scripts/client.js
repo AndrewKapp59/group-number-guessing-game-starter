@@ -94,7 +94,6 @@ function renderToDom(scoreboard){
       <td class="${round.playerTwoStatus}">${round.playerTwo}</td>
       <td class="${round.playerThreeStatus}">${round.playerThree}</td>
       <td class="${round.playerFourStatus}">${round.playerFour}</td>
-
       </tr>`)
   }
 }
