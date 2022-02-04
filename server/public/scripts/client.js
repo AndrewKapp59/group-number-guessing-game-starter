@@ -47,7 +47,7 @@ function addGuesses() {
       }
     }
   }).then(function(response){
-    console.log('Guess Added', response);
+    console.log('Guess made');
     // runs getScoreboard to refresh the DOM with the new item
     getScoreboard(); 
   }).catch(function(response){
@@ -56,13 +56,12 @@ function addGuesses() {
 }
 
 function getScoreboard () {
-  console.log('inside getScoreboard');
   // using AJAX to make a get request to the server for the scoreboard array
   $.ajax({
     method: 'GET',
     url: '/scoreboard'
   }).then(function(response){
-    console.log('Scoreboard appended', response);
+    console.log('Scoreboard updated', response);
     // runs renderToDom to append the updated scoreboard array from the server
     renderToDom(response);
   }).catch(function(response){
