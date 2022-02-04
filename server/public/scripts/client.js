@@ -70,7 +70,7 @@ function getScoreboard () {
   });
 }
 
-// sends a request to the server to reset the correct number
+// sends a request to the server to reset the correct number, round count and scoreboard
 function startNewGame() {
   //use AJAX to make a post request to the server
   $.ajax({
@@ -81,6 +81,8 @@ function startNewGame() {
   }).catch(function(response){
     console.log('UGHHHH clear not Working');
   })
+  // runs resetTable to empty HTML scoreboard
+  resetTable();
 }
 
 function renderToDom(scoreboard){
@@ -96,4 +98,10 @@ function renderToDom(scoreboard){
 
       </tr>`)
   }
+}
+
+// empties the scoreboard for a new game
+function resetTable(){
+  $('#scoreboard').empty();
+  console.log('Scoreboard emptied');
 }

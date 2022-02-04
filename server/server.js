@@ -54,6 +54,8 @@ app.get('/scoreboard', function(req, res){
 app.post('/reset', function(req, res){
  // runs randomNumberGen to change the correct number
  randomNumberGen()
+ scoreboard = []
+ roundCounter = 0;
  res.send(201);
 })
 
