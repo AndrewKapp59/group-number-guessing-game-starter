@@ -3,8 +3,7 @@ $(document).ready(handleReady);
 function handleReady() {
   console.log("jquery is loaded!")
   $('#button-submit').on('click', addGuesses)
-  // startNewGame();
-
+  $('#button-reset').on('click', startNewGame)
 }
 
 // <Game Start> ---------------------------------------
@@ -69,6 +68,19 @@ function getScoreboard () {
   }).catch(function(response){
     console.log('getScoreboard not working', response);
   });
+}
+
+// sends a request to the server to reset the correct number
+function startNewGame() {
+  //use AJAX to make a post request to the server
+  $.ajax({
+    method: 'POST', 
+    url: '/reset',
+  }).then(function(response){
+    console.log('Correct Number Changed');
+  }).catch(function(response){
+    console.log('UGHHHH clear not Working');
+  })
 }
 
 function renderToDom(scoreboard){

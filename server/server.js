@@ -8,7 +8,6 @@ let roundCounter = 0 ;
 
 let scoreboard = [];
 
-
 // This must be added before GET & POST routes.
 app.use(bodyParser.urlencoded({extended:true}))
 
@@ -51,6 +50,12 @@ app.get('/scoreboard', function(req, res){
   console.log('request at /scoreboard was made', req.body);
   res.send(scoreboard);
 });
+
+app.post('/reset', function(req, res){
+ // runs randomNumberGen to change the correct number
+ randomNumberGen()
+ res.send(201);
+})
 
 // produces a random guess and assigns it to correctNumber
 function randomNumberGen() {
